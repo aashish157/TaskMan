@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 
         EditText username = (EditText) findViewById(R.id.username);
         EditText password = (EditText) findViewById(R.id.password);
-        Button loginBtn = (Button) findViewById(R.id.login);
+        Button loginBtn = (Button) findViewById(R.id.loginBtn);
         TextView loginActivityText = (TextView) findViewById(R.id.loginTextView);
 
         //onclick login button function
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent("com.taskman.signupactivity");
+                Intent intent = new Intent("com.taskman.signUpActivity");
                 startActivity(intent);
             }
         });
