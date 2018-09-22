@@ -9,11 +9,11 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="96dp"
+        android:layout_marginTop="415dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -53,9 +53,9 @@
         android:id="@+id/loginBtn"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="235dp"
+        android:layout_marginTop="300dp"
         android:background="#16A085"
         android:text="LOGIN" />
 
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="59dp"
         android:text="Not a member? Sign up now."
         android:textAlignment="center"
         android:textColor="#f0f3f4"
@@ -85,12 +85,12 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewOr"
         android:layout_width="104dp"
         android:layout_height="43dp"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="168dp"
+        android:layout_marginTop="356dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="OR"
         android:textColor="@android:color/background_light"
