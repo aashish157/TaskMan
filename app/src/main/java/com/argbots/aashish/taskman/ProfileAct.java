@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import static android.widget.Toast.makeText;
 
 public class ProfileAct extends Activity {
 
@@ -23,6 +26,9 @@ public class ProfileAct extends Activity {
     FirebaseAuth.AuthStateListener mAuthLisner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Toast.makeText(ProfileAct.this, "Login Sucessfull", Toast.LENGTH_SHORT).show();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
