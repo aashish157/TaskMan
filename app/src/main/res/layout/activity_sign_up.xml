@@ -76,13 +76,13 @@
 
     <TextView
         android:id="@+id/signUpTextView"
-        android:layout_width="270dp"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="93dp"
-        android:text="Already registered? Login now."
+        android:text="Already registered? Click here to Login"
         android:textAlignment="center"
         android:textColor="#f0f3f4"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 </RelativeLayout>

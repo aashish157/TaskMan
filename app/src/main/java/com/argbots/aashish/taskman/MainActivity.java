@@ -83,7 +83,7 @@ public class MainActivity extends Activity {
         super.onStart();
         if(mAuth.getCurrentUser() != null){
             finish();
-            Intent myIntent = new Intent(MainActivity.this,ProfileAct.class);
+            Intent myIntent = new Intent(MainActivity.this,dashboard.class);
             startActivity(myIntent);
         }
     }
@@ -116,7 +116,7 @@ public class MainActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent in=new Intent(MainActivity.this,ProfileAct.class);
+                            Intent in=new Intent(MainActivity.this,dashboard.class);
                             startActivity(in);
 
                            // Toast.makeText(MainActivity.this, "Login Sucessfull", Toast.LENGTH_SHORT).show();
