@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,23 +35,54 @@ public class dashboard extends AppCompatActivity
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthLisner;
     //recylerview
-    private List<Note> noteList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private NotesAdapter mAdapter;
+    ImageView open;
+    FrameLayout content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
 
-        recyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
+
+      //  content=findViewById(R.id.content);
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(dashboard.this, LinearLayoutManager.VERTICAL,false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        open=findViewById(R.id.open);
+        open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(drawer.isDrawerOpen(navigationView))
+                    drawer.closeDrawer(navigationView);
+                else
+                    drawer.openDrawer(navigationView);
+            }
+        });
+
+        if(drawer.isDrawerOpen(navigationView))
+            drawer.closeDrawer(navigationView);
+
+        Fragment frag=null;
+
+        try {
+            frag=(Fragment) BlankFragment.class.newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
+        FragmentTransaction trans=getSupportFragmentManager().beginTransaction();
+        trans.replace(R.id.content,frag);
+        trans.commit();
 
 
-        preparenoteData();
+
 
         // check if user is logged in ,; sign him out if not logged in
         mAuth=FirebaseAuth.getInstance();
@@ -59,26 +94,17 @@ public class dashboard extends AppCompatActivity
             }
         };
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -156,36 +182,7 @@ public class dashboard extends AppCompatActivity
 
 
 
-    private void preparenoteData() {
-        Note note = new Note("Mad Max: Fury Road", "2015");
-        noteList.add(note);
 
-        note = new Note("Inside Out", "2015");
-        noteList.add(note);
-
-        note = new Note("Star Wars: Episode VII - The Force Awakens", "2015");
-        noteList.add(note);
-
-        note = new Note("Shaun the Sheep", "2015");
-        noteList.add(note);
-
-        note = new Note("The Martian", "2015");
-        noteList.add(note);
-
-        note = new Note("Mission: Impossible Rogue Nation", "2015");
-        noteList.add(note);
-
-        note = new Note("Up", "2009");
-        noteList.add(note);
-
-        note = new Note("Star Trek", "2009");
-        noteList.add(note);
-
-        mAdapter = new NotesAdapter(noteList);
-
-        recyclerView.setAdapter(mAdapter);
-
-    }
 
 
 }
