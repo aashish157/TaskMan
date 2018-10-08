@@ -18,28 +18,16 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class dashboard extends AppCompatActivity
+public class about extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //firebase auth class instances
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthLisner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        // check if user is logged in ,; sign him out if not logged in
-        mAuth=FirebaseAuth.getInstance();
-        mAuthLisner=new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser()==null)
-                    startActivity(new Intent(dashboard.this,MainActivity.class));
-            }
-        };
-
+        setContentView(R.layout.activity_about);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -109,20 +97,18 @@ public class dashboard extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_about) {
-            Intent in = new Intent(dashboard.this,about.class);
-            startActivity(in);
 
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_logout) {
+
             mAuth=FirebaseAuth.getInstance();
             mAuth.signOut();
-            //below lines are for transferring control to Main Activity when logged out
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            startActivity(new Intent(about.this,MainActivity.class));
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
