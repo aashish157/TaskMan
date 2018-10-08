@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,17 +21,33 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     //firebase auth class instances
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthLisner;
-
+    //recylerview
+    private List<Note> noteList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private NotesAdapter mAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+
+        recyclerView =  (RecyclerView) findViewById(R.id.recycler_view);
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(dashboard.this, LinearLayoutManager.VERTICAL,false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+        preparenoteData();
 
         // check if user is logged in ,; sign him out if not logged in
         mAuth=FirebaseAuth.getInstance();
@@ -130,5 +149,43 @@ public class dashboard extends AppCompatActivity
         return true;
 
     }
+
+
+    //recycler view
+
+
+
+
+    private void preparenoteData() {
+        Note note = new Note("Mad Max: Fury Road", "2015");
+        noteList.add(note);
+
+        note = new Note("Inside Out", "2015");
+        noteList.add(note);
+
+        note = new Note("Star Wars: Episode VII - The Force Awakens", "2015");
+        noteList.add(note);
+
+        note = new Note("Shaun the Sheep", "2015");
+        noteList.add(note);
+
+        note = new Note("The Martian", "2015");
+        noteList.add(note);
+
+        note = new Note("Mission: Impossible Rogue Nation", "2015");
+        noteList.add(note);
+
+        note = new Note("Up", "2009");
+        noteList.add(note);
+
+        note = new Note("Star Trek", "2009");
+        noteList.add(note);
+
+        mAdapter = new NotesAdapter(noteList);
+
+        recyclerView.setAdapter(mAdapter);
+
+    }
+
 
 }
