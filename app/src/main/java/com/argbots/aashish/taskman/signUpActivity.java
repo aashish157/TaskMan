@@ -76,7 +76,7 @@ public class signUpActivity extends Activity {
                            @Override
                            public void onComplete(@NonNull Task<AuthResult> task) {
                                if (task.isSuccessful()) {
-                                   startActivity(new Intent(signUpActivity.this,AccountActivity.class));
+                                   startActivity(new Intent(signUpActivity.this,dashboard.class));
                                } else {
                                    Toast.makeText(signUpActivity.this,"Sign Up Problem",Toast.LENGTH_LONG);
                                }

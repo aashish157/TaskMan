@@ -101,15 +101,12 @@ public class dashboard extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.nav_logout) {
+
             mAuth=FirebaseAuth.getInstance();
-            mAuthLisner=new FirebaseAuth.AuthStateListener() {
-                @Override
-                public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if(firebaseAuth.getCurrentUser()==null)
-                        startActivity(new Intent(dashboard.this,MainActivity.class));
-                }
-            };
             mAuth.signOut();
+            startActivity(new Intent(dashboard.this,MainActivity.class));
+
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

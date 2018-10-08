@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,10 +28,17 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends Activity {
 
+    private FirebaseAuth mAuth;
+
+    private EditText username;
+    private EditText password;
+    private Button loginBtn;
+    private TextView loginActivityText;
+
 
     private static final int RC_SIGN_IN = 18;
     GoogleSignInClient mGoogleSignInClient;
-    FirebaseAuth mAuth;
+
     private String TAG="Harsh";
 
     @Override
@@ -38,16 +46,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText username = (EditText) findViewById(R.id.username);
-        EditText password = (EditText) findViewById(R.id.password);
-        Button loginBtn = (Button) findViewById(R.id.loginBtn);
-        TextView loginActivityText = (TextView) findViewById(R.id.loginTextView);
+        username = (EditText) findViewById(R.id.username);
+        password = (EditText) findViewById(R.id.password);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
+        loginActivityText = (TextView) findViewById(R.id.loginTextView);
 
         //onclick login button function
         loginBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+
+                login();
 
             }
 
@@ -136,6 +146,33 @@ public class MainActivity extends Activity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void login()
+    {
+        String memail = username.getText().toString();
+        String mpass = password.getText().toString();
+
+        if(TextUtils.isEmpty(memail) || TextUtils.isEmpty(mpass))
+        {
+            Toast.makeText(MainActivity.this,"Fields are empty",Toast.LENGTH_LONG);
+        }
+        else
+        {
+            mAuth.signInWithEmailAndPassword(memail, mpass)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                startActivity(new Intent(MainActivity.this,dashboard.class));
+                            } else {
+                                Toast.makeText(MainActivity.this,"Sign Up Problem",Toast.LENGTH_LONG);
+                            }
+
+
+                        }
+                    });
+        }
     }
 
 }
