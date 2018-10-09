@@ -56,7 +56,7 @@ public class dashboard extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-        //test
+        //set user pic, name and email id in the nav drawer header
         View headerView = navigationView.getHeaderView(0);
         TextView name = (TextView) headerView.findViewById((R.id.name));
         TextView email = (TextView) headerView.findViewById(R.id.email);
@@ -70,10 +70,9 @@ public class dashboard extends AppCompatActivity
         Glide.with(this)
                 .load(user.getPhotoUrl())
                 .into(img);
-        //Uri photoUrl = user.getPhotoUrl();
         name.setText(Name);
         email.setText(Email);
-        //test
+
 
 
         navigationView.setNavigationItemSelectedListener(this);
