@@ -145,13 +145,9 @@ public class dashboard extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_tasks) {
+            // Handle the task action
+        } else if (id == R.id.nav_reminders) {
 
         } else if (id == R.id.nav_about) {
             Intent in = new Intent(dashboard.this,about.class);

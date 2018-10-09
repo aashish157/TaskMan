@@ -118,6 +118,18 @@ public class BlankFragment extends Fragment {
         note = new Note("Star Trek", "2009");
         noteList.add(note);
 
+        note = new Note("Mission Impossible Fallout", "2018");
+        noteList.add(note);
+
+        note = new Note("The NUN", "2018");
+        noteList.add(note);
+
+        note = new Note("Avengers:Infinity War", "2018");
+        noteList.add(note);
+
+        note = new Note("Venom", "2018");
+        noteList.add(note);
+
         mAdapter = new NotesAdapter(noteList);
 
         recyclerView.setAdapter(mAdapter);
