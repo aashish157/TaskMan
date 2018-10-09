@@ -1,12 +1,18 @@
 package com.argbots.aashish.taskman;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +76,7 @@ public class BlankFragment extends Fragment {
     private List<Note> noteList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NotesAdapter mAdapter;
+    private ConstraintLayout constraintLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,11 +84,12 @@ public class BlankFragment extends Fragment {
         View v= inflater.inflate(R.layout.fragment_blank, container, false);
 
         recyclerView =  v.findViewById(R.id.recycler_view);
+        constraintLayout=v.findViewById(R.id.constraint_Layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         preparenoteData();
-
+        enableSwipeToDeleteAndUndo();
         return v;
     }
 
@@ -114,6 +122,39 @@ public class BlankFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
+    }
+
+    private void enableSwipeToDeleteAndUndo() {
+        SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(getContext()) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+                final int position = viewHolder.getAdapterPosition();
+                final Note item = mAdapter.getData().get(position);
+
+                mAdapter.removeItem(position);
+
+
+                Snackbar snackbar = Snackbar
+                        .make(constraintLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mAdapter.restoreItem(item, position);
+                        recyclerView.scrollToPosition(position);
+                    }
+                });
+
+                snackbar.setActionTextColor(Color.YELLOW);
+                snackbar.show();
+
+            }
+        };
+
+        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
+        itemTouchhelper.attachToRecyclerView(recyclerView);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

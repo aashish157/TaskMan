@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
@@ -46,5 +47,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         return notesList.size();
+    }
+
+
+    public void removeItem(int position) {
+        notesList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Note item, int position) {
+        notesList.add(position, item);
+        notifyItemInserted(position);
+    }
+    public ArrayList<Note> getData() {
+        return (ArrayList<Note>) notesList;
     }
 }
