@@ -21,9 +21,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +47,6 @@ public class dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
 
 
-
       //  content=findViewById(R.id.content);
 
 
@@ -52,6 +55,27 @@ public class dashboard extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        //test
+        View headerView = navigationView.getHeaderView(0);
+        TextView name = (TextView) headerView.findViewById((R.id.name));
+        TextView email = (TextView) headerView.findViewById(R.id.email);
+        ImageView img = (ImageView) headerView.findViewById(R.id.imageView);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        String Name = user.getDisplayName();
+        String Email = user.getEmail();
+
+        Glide.with(this)
+                .load(user.getPhotoUrl())
+                .into(img);
+        //Uri photoUrl = user.getPhotoUrl();
+        name.setText(Name);
+        email.setText(Email);
+        //test
+
+
         navigationView.setNavigationItemSelectedListener(this);
         open=findViewById(R.id.open);
         open.setOnClickListener(new View.OnClickListener() {
