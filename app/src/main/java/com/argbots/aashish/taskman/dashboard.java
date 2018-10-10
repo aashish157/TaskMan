@@ -38,7 +38,7 @@ public class dashboard extends AppCompatActivity
     //firebase auth class instances
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthLisner;
-    //recylerview
+    //recyclerview
     ImageView open;
     FrameLayout content;
     @Override
@@ -55,6 +55,8 @@ public class dashboard extends AppCompatActivity
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+
 
         //set user pic, name and email id in the nav drawer header
         View headerView = navigationView.getHeaderView(0);

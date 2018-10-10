@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,9 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class signUpActivity extends Activity {
 
     private FirebaseAuth mAuth;
-    private EditText name;
-    private EditText email;
-    private EditText pass;
+    private EditText name,email,pass,confirmPass;
     private Button signUpBtn;
 
     @Override
@@ -37,13 +38,20 @@ public class signUpActivity extends Activity {
          name = (EditText) findViewById(R.id.name);
          email = (EditText) findViewById(R.id.email);
          pass = (EditText) findViewById(R.id.password);
+         confirmPass = (EditText) findViewById(R.id.confirmPassword);
          signUpBtn = (Button) findViewById(R.id.signUpBtn);
-        TextView signUpTextView = (TextView) findViewById(R.id.signUpTextView);
+         TextView signUpTextView = (TextView) findViewById(R.id.signUpTextView);
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                //blink animation
+                Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+                animation.setDuration(100); // duration - half a second
+                animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+                animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+                signUpBtn.startAnimation(animation);
 
                 SignUp();
             }

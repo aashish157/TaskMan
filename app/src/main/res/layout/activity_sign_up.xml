@@ -23,10 +23,11 @@
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_below="@+id/appName"
         android:layout_marginTop="188dp"
         android:background="#f0f3f4"
         android:ems="10"
@@ -38,11 +39,12 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="244dp"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="239dp"
         android:background="#F0F3F4"
         android:ems="10"
         android:hint="Email ID"
@@ -52,11 +54,12 @@
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
+        android:layout_below="@+id/email"
+        android:layout_marginTop="290dp"
         android:background="#F0F3F4"
         android:ems="10"
         android:hint="Password (min. 8 characters )"
@@ -64,10 +67,25 @@
         android:paddingLeft="15dp"
         android:textSize="16sp" />
 
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="341dp"
+        android:background="#F0F3F4"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:textSize="16sp" />
+
     <Button
         android:id="@+id/signUpBtn"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="183dp"

@@ -6,71 +6,6 @@
     android:layout_height="match_parent"
     android:background="#17202A">
 
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="415dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="188dp"
-        android:background="#f0f3f4"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textPersonName"
-        android:paddingLeft="15dp"
-        android:textSize="16sp" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="244dp"
-        android:background="#F0F3F4"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPersonName"
-        android:paddingLeft="15dp"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
-        android:background="#16A085"
-        android:text="LOGIN" />
-
-    <TextView
-        android:id="@+id/loginTextView"
-        android:layout_width="310dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="59dp"
-        android:text="Not a member? Click here to Sign Up"
-        android:textAlignment="center"
-        android:textColor="#f0f3f4"
-        android:textSize="14sp" />
-
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
@@ -84,17 +19,84 @@
         android:textSize="36sp"
         android:textStyle="bold" />
 
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/appName"
+        android:layout_marginTop="188dp"
+        android:background="#f0f3f4"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="239dp"
+        android:background="#F0F3F4"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="280dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/password"
+        android:layout_marginTop="290dp"
+        android:background="#16A085"
+        android:text="LOGIN" />
+
     <TextView
         android:id="@+id/textViewOr"
         android:layout_width="104dp"
         android:layout_height="43dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="349dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="OR"
         android:textColor="@android:color/background_light"
         android:textStyle="italic"
         tools:text="OR" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="408dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="93dp"
+        android:text="Not a member? Click here to Sign Up"
+        android:textAlignment="center"
+        android:textColor="#f0f3f4"
+        android:textSize="14sp" />
 
 </RelativeLayout>
