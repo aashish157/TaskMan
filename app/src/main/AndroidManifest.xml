@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".signUpActivity"
+        <activity
+            android:name=".signUpActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.taskman.signUpActivity" />
@@ -33,10 +35,12 @@
             android:name=".dashboard"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".about"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-        <activity android:name=".test"></activity>
+        <activity
+            android:name=".about"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".test" />
+        <activity android:name=".addTask"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

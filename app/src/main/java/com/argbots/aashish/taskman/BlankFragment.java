@@ -1,6 +1,7 @@
 package com.argbots.aashish.taskman;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,7 @@ public class BlankFragment extends Fragment {
 
     private List<Note> noteList = new ArrayList<>();
     private RecyclerView recyclerView;
+    private Button addTaskBtn;
     private NotesAdapter mAdapter;
     private ConstraintLayout constraintLayout;
     @Override
@@ -87,6 +90,21 @@ public class BlankFragment extends Fragment {
         constraintLayout=v.findViewById(R.id.constraint_Layout);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+
+        //Set Action of Add Task Btn Onclick
+        addTaskBtn = v.findViewById(R.id.addTaskBtn);
+        addTaskBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(getActivity(),addTask.class);
+                startActivity(in);
+            }
+        });
+
+
 
         preparenoteData();
         enableSwipeToDeleteAndUndo();
@@ -198,4 +216,5 @@ public class BlankFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

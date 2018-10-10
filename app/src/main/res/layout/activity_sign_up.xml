@@ -62,7 +62,7 @@
         android:layout_marginTop="290dp"
         android:background="#F0F3F4"
         android:ems="10"
-        android:hint="Password (min. 8 characters )"
+        android:hint="Password (min. 8 char)"
         android:inputType="textPassword"
         android:paddingLeft="15dp"
         android:textSize="16sp"
