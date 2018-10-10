@@ -72,26 +72,43 @@ public class signUpActivity extends Activity {
     {
            String memail = email.getText().toString();
            String mpass = pass.getText().toString();
+           String cpass = confirmPass.getText().toString();
+           String uname = name.getText().toString();
 
-           if(TextUtils.isEmpty(memail) || TextUtils.isEmpty(mpass))
+           if(TextUtils.isEmpty(memail) || TextUtils.isEmpty(mpass) ||  TextUtils.isEmpty(cpass) || TextUtils.isEmpty(uname))
            {
-               Toast.makeText(signUpActivity.this,"Fields are empty",Toast.LENGTH_LONG);
+               Toast.makeText(signUpActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
            }
            else
            {
-               mAuth.createUserWithEmailAndPassword(memail, mpass)
-                       .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                           @Override
-                           public void onComplete(@NonNull Task<AuthResult> task) {
-                               if (task.isSuccessful()) {
-                                   startActivity(new Intent(signUpActivity.this,dashboard.class));
-                               } else {
-                                   Toast.makeText(signUpActivity.this,"Sign Up Problem",Toast.LENGTH_LONG);
+
+               if(cpass.equals(mpass) && cpass.length()>=8 && mpass.length()>=8)
+               {
+                   mAuth.createUserWithEmailAndPassword(memail, mpass)
+                           .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                               @Override
+                               public void onComplete(@NonNull Task<AuthResult> task) {
+                                   if (task.isSuccessful()) {
+                                       startActivity(new Intent(signUpActivity.this,dashboard.class));
+                                   } else {
+                                       Toast.makeText(signUpActivity.this,"Sign Up Problem",Toast.LENGTH_LONG).show();
+                                   }
+
+
                                }
+                           });
+               }
+               else
+               {
+                   if(!cpass.equals(mpass))
+                  Toast.makeText(signUpActivity.this,"Passwords not matching",Toast.LENGTH_LONG).show();
+                   else
+                   {
+                       Toast.makeText(signUpActivity.this,"Passwords should be at least 8 characters long ",Toast.LENGTH_LONG).show();
+                   }
 
+               }
 
-                           }
-                       });
            }
     }
 }

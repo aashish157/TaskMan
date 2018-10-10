@@ -164,7 +164,7 @@ public class MainActivity extends Activity {
 
         if(TextUtils.isEmpty(memail) || TextUtils.isEmpty(mpass))
         {
-            Toast.makeText(MainActivity.this,"Fields are empty",Toast.LENGTH_LONG);
+            Toast.makeText(MainActivity.this,"Fields are empty",Toast.LENGTH_LONG).show();
         }
         else
         {
@@ -175,7 +175,7 @@ public class MainActivity extends Activity {
                             if (task.isSuccessful()) {
                                 startActivity(new Intent(MainActivity.this,dashboard.class));
                             } else {
-                                Toast.makeText(MainActivity.this,"Sign Up Problem",Toast.LENGTH_LONG);
+                                Toast.makeText(MainActivity.this,"Incorrect Email Or Password",Toast.LENGTH_LONG).show();
                             }
 
 
