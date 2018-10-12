@@ -1,6 +1,8 @@
 package com.argbots.aashish.taskman;
 
 import android.content.Intent;
+import android.media.Image;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -29,12 +34,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
+
 
 public class addTask extends AppCompatActivity {
 
     FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
 
     private static final String TAG = "Aashish";
+
+    TextView textFile;
+    private static final int PICKFILE_RESULT_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +132,38 @@ public class addTask extends AppCompatActivity {
 
 
 
+        // set action for onclick of attach file imageview
+        ImageView attachFile = (ImageView) findViewById(R.id.attachFile);
+        textFile = (TextView) findViewById(R.id.textFile);
+
+        attachFile.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // TODO Auto-generated method stub
+
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("file/*");
+                startActivityForResult(intent,PICKFILE_RESULT_CODE);
+            }
+        });
+
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        switch(requestCode){
+            case PICKFILE_RESULT_CODE:
+                if(resultCode==RESULT_OK){
+                    String FilePath = data.getData().getPath();
+                    textFile.setText(FilePath);
+                }
+                break;
+
+        }
+    }
+
+
 }
