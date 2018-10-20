@@ -15,9 +15,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,6 +94,8 @@ public class BlankFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
+        //open popup_menu on long press
+
 
 
         //Set Action of Add Task Btn Onclick
@@ -148,7 +153,7 @@ public class BlankFragment extends Fragment {
         note = new Note("Venom", "2018");
         noteList.add(note);
 
-        mAdapter = new NotesAdapter(noteList);
+        mAdapter = new NotesAdapter(noteList,getContext());
 
         recyclerView.setAdapter(mAdapter);
 
