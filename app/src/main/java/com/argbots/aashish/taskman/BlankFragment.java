@@ -14,6 +14,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,60 +23,26 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.support.constraint.Constraints.TAG;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BlankFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class BlankFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
-
-    public BlankFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BlankFragment newInstance(String param1, String param2) {
-        BlankFragment fragment = new BlankFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
 
     private List<Note> noteList = new ArrayList<>();
@@ -116,42 +83,96 @@ public class BlankFragment extends Fragment {
         return v;
     }
 
+
     private void preparenoteData() {
-        Note note = new Note("Mad Max: Fury Road", "2015");
-        noteList.add(note);
+        Log.e("called","yes");
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference myDocRef = db.collection(u.getEmail()).document("t024715121018");
 
-        note = new Note("Inside Out", "2015");
-        noteList.add(note);
+        /*myDocRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
-        note = new Note("Star Wars: Episode VII - The Force Awakens", "2015");
-        noteList.add(note);
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-        note = new Note("Shaun the Sheep", "2015");
-        noteList.add(note);
+                if(documentSnapshot.exists()){
+                    String task = documentSnapshot.getString("task");
+                    Note note = new Note(task,"2018");
+                    Log.e("Notes", task);
+                    noteList.add(note);
 
-        note = new Note("The Martian", "2015");
-        noteList.add(note);
+                    recyclerView.setAdapter(mAdapter);
+                }
 
-        note = new Note("Mission: Impossible Rogue Nation", "2015");
-        noteList.add(note);
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-        note = new Note("Up", "2009");
-        noteList.add(note);
+                    }
+                });*/
 
-        note = new Note("Star Trek", "2009");
-        noteList.add(note);
+        db.collection(u.getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
 
-        note = new Note("Mission Impossible Fallout", "2018");
-        noteList.add(note);
+                                String n = document.getString("task");
+                                Note note = new Note(n,"2018");
+                                Log.e("Notes", n);
+                                noteList.add(note);
 
-        note = new Note("The NUN", "2018");
-        noteList.add(note);
+                                recyclerView.setAdapter(mAdapter);
 
-        note = new Note("Avengers:Infinity War", "2018");
-        noteList.add(note);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
-        note = new Note("Venom", "2018");
-        noteList.add(note);
+
+//        Note note = new Note("Mad Max: Fury Road", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("Inside Out", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("Star Wars: Episode VII - The Force Awakens", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("Shaun the Sheep", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("The Martian", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("Mission: Impossible Rogue Nation", "2015");
+//        noteList.add(note);
+//
+//        note = new Note("Up", "2009");
+//        noteList.add(note);
+//
+//        note = new Note("Star Trek", "2009");
+//        noteList.add(note);
+//
+//        note = new Note("Mission Impossible Fallout", "2018");
+//        noteList.add(note);
+//
+//        note = new Note("The NUN", "2018");
+//        noteList.add(note);
+//
+//        note = new Note("Avengers:Infinity War", "2018");
+//        noteList.add(note);
+//
+//        note = new Note("Venom", "2018");
+//        noteList.add(note);
 
         mAdapter = new NotesAdapter(noteList,getContext());
 
@@ -190,36 +211,6 @@ public class BlankFragment extends Fragment {
 
         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeToDeleteCallback);
         itemTouchhelper.attachToRecyclerView(recyclerView);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
 }
