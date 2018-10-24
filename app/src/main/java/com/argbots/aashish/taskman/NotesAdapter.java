@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,9 +74,20 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
+                        switch(item.getItemId()){
+                          case R.id.one :   Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
+                                            whatsappIntent.setType("text/plain");
+                                            whatsappIntent.setPackage("com.whatsapp");
+                                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, ""+note.getTid());
+                                            try {
+                                                mCtx.startActivity(whatsappIntent);
+                                           } catch (android.content.ActivityNotFoundException ex) {
+                                                  Toast.makeText(mCtx,"Whatsapp not installed",Toast.LENGTH_LONG).show(); }
+                                            return true;
+                            default : return false;
+                        }
 
-                        Toast.makeText(mCtx,"You Clicked : " + item.getTitle(), Toast.LENGTH_SHORT).show();
-                        return true;
+
                     }
                 });
 
