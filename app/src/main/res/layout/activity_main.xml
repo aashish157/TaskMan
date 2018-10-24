@@ -6,27 +6,14 @@
     android:layout_height="match_parent"
     android:background="#17202A">
 
-    <TextView
-        android:id="@+id/appName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
-        android:fontFamily="cursive"
-        android:text="TaskMan"
-        android:textColor="#16A085"
-        android:textSize="36sp"
-        android:textStyle="bold" />
-
     <EditText
         android:id="@+id/username"
         android:layout_width="280dp"
         android:layout_height="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/appName"
-        android:layout_marginTop="188dp"
+        android:layout_alignStart="@+id/loginBtn"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="198dp"
         android:background="#f0f3f4"
         android:ems="10"
         android:hint="Email"
@@ -38,10 +25,10 @@
         android:id="@+id/password"
         android:layout_width="280dp"
         android:layout_height="35dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/username"
-        android:layout_marginTop="239dp"
+        android:layout_alignStart="@+id/username"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="247dp"
         android:background="#F0F3F4"
         android:ems="10"
         android:hint="Password"
@@ -53,10 +40,10 @@
         android:id="@+id/loginBtn"
         android:layout_width="280dp"
         android:layout_height="35dp"
+        android:layout_below="@+id/password"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/password"
-        android:layout_marginTop="290dp"
+        android:layout_marginTop="300dp"
         android:background="#16A085"
         android:text="LOGIN" />
 
@@ -66,7 +53,7 @@
         android:layout_height="43dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="349dp"
+        android:layout_marginTop="363dp"
         android:gravity="center_vertical|center_horizontal"
         android:text="OR"
         android:textColor="@android:color/background_light"
@@ -79,7 +66,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="408dp"
+        android:layout_marginTop="426dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -98,5 +85,15 @@
         android:textAlignment="center"
         android:textColor="#f0f3f4"
         android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="252dp"
+        android:layout_height="159dp"
+        android:layout_alignEnd="@+id/username"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="13dp"
+        app:srcCompat="@drawable/taskmanwhite" />
 
 </RelativeLayout>
