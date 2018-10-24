@@ -178,10 +178,6 @@ public class dashboard extends AppCompatActivity
             Intent in = new Intent(dashboard.this,about.class);
             startActivity(in);
 
-        } else if (id == R.id.nav_settings) {
-
-        } else if (id == R.id.nav_help) {
-
         } else if (id == R.id.nav_logout) {
             mAuth=FirebaseAuth.getInstance();
             mAuth.signOut();
