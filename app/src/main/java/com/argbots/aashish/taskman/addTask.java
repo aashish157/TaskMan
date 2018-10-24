@@ -51,8 +51,12 @@ public class addTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-
-
+        if (getIntent().hasExtra("tid")) {
+            TextView taskNote = (TextView) findViewById(R.id.taskNote);
+            String text = getIntent().getExtras().getString("tid");
+            taskNote.setText(text);
+        }
+        else{
         //Set action for onlick of back arrow imageview
         ImageView backBtn = (ImageView) findViewById(R.id.backBtn);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +68,6 @@ public class addTask extends AppCompatActivity {
                 animation.setDuration(100); // duration 100ms
                 animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
                 animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
-
-
 
 
                 // ACCESS CLOUD FIRESTORE START //
@@ -83,8 +85,8 @@ public class addTask extends AppCompatActivity {
                 TextView taskNote = (TextView) findViewById(R.id.taskNote);
                 String task = taskNote.getText().toString();
 
-                if(!task.isEmpty()){
-                    DocumentReference mDocRef = FirebaseFirestore.getInstance().collection(u.getEmail()).document("t"+currentTime);
+                if (!task.isEmpty()) {
+                    DocumentReference mDocRef = FirebaseFirestore.getInstance().collection(u.getEmail()).document("t" + currentTime);
 
                     /*mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
@@ -96,15 +98,14 @@ public class addTask extends AppCompatActivity {
                     });*/
 
 
-
                     // Create a new note with fields uid,email,name,task,toc
                     Map<String, Object> user = new HashMap<>();
                     user.put("tid", "t" + currentTime);
                     user.put("uid", u.getUid());
                     user.put("email", u.getEmail());
                     user.put("name", u.getDisplayName());
-                    user.put("task",task);
-                    user.put("toc",toc);
+                    user.put("task", task);
+                    user.put("toc", toc);
 
                     mDocRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
@@ -116,7 +117,7 @@ public class addTask extends AppCompatActivity {
 
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.d(TAG, "Document was not saved!",e);
+                            Log.d(TAG, "Document was not saved!", e);
                         }
                     });
                     ;
@@ -127,13 +128,12 @@ public class addTask extends AppCompatActivity {
 
 
                 //Transfer control to dashboard onclick of back arrow imageview
-                Intent in = new Intent(addTask.this,dashboard.class);
+                Intent in = new Intent(addTask.this, dashboard.class);
                 startActivity(in);
 
 
             }
         });
-
 
 
         // set action for onclick of attach file imageview
@@ -148,11 +148,11 @@ public class addTask extends AppCompatActivity {
 
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("file/*");
-                startActivityForResult(intent,PICKFILE_RESULT_CODE);
+                startActivityForResult(intent, PICKFILE_RESULT_CODE);
             }
         });
 
-
+    }
     }
 
     @Override

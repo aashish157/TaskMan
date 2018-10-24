@@ -195,6 +195,7 @@ public class BlankFragment extends Fragment {
                 mAdapter.removeItem(position);
 
 
+
                 Snackbar snackbar = Snackbar
                         .make(constraintLayout, "Item was removed from the list.", Snackbar.LENGTH_LONG);
                 snackbar.setAction("UNDO", new View.OnClickListener() {
