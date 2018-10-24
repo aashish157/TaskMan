@@ -123,9 +123,11 @@ public class BlankFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d(TAG, document.getId() + " => " + document.getData());
 
-                                String n = document.getString("task");
-                                Note note = new Note(n,"2018");
-                                Log.e("Notes", n);
+                                String noteContent = document.getString("task");
+                                String timeOfCreation = document.getString("toc");
+
+                                Note note = new Note(noteContent,timeOfCreation);
+                                Log.e("Notes", noteContent);
                                 noteList.add(note);
 
                                 recyclerView.setAdapter(mAdapter);

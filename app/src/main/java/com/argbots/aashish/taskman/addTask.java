@@ -73,8 +73,11 @@ public class addTask extends AppCompatActivity {
 
                 // Generate cur. date time for note ID
                 SimpleDateFormat formatter = new SimpleDateFormat("HHmmssddMMyy");
+                SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yy");
                 Date date = new Date();
                 String currentTime = formatter.format(date);
+                String toc = formatter2.format(date);
+
 
                 //input from EditText field of addTask Layout
                 TextView taskNote = (TextView) findViewById(R.id.taskNote);
@@ -100,7 +103,7 @@ public class addTask extends AppCompatActivity {
                     user.put("email", u.getEmail());
                     user.put("name", u.getDisplayName());
                     user.put("task",task);
-                    user.put("toc",currentTime);
+                    user.put("toc",toc);
 
                     mDocRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
