@@ -194,6 +194,26 @@ public class BlankFragment extends Fragment {
 
                 mAdapter.removeItem(position);
 
+                //delete the task from Firestore
+                FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                db.collection(u.getEmail()).document(item.getTid())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error deleting document", e);
+                            }
+                        });
+
+
 
 
                 Snackbar snackbar = Snackbar

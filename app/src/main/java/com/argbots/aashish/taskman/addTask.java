@@ -52,9 +52,40 @@ public class addTask extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         if (getIntent().hasExtra("tid")) {
-            TextView taskNote = (TextView) findViewById(R.id.taskNote);
-            String text = getIntent().getExtras().getString("tid");
-            taskNote.setText(text);
+            final TextView taskNote = (TextView) findViewById(R.id.taskNote);
+            String taskId = getIntent().getExtras().getString("tid");
+
+
+            FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            DocumentReference myDocRef = db.collection(u.getEmail()).document(taskId);
+
+            myDocRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                if(documentSnapshot.exists()){
+                    String task = documentSnapshot.getString("task");
+                    taskNote.setText(task);
+
+//                    Note note = new Note(task,"2018");
+//                    Log.e("Notes", task);
+//                    noteList.add(note);
+//
+//                    recyclerView.setAdapter(mAdapter);
+                }
+
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
         }
         else{
         //Set action for onlick of back arrow imageview
