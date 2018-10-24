@@ -28,8 +28,8 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
     String fullname;
-    String toc;
-    String task;
+    String timeOfCreation;
+    String taskData;
 
     private List<Note> notesList;
     private Context mCtx;
@@ -67,14 +67,43 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         holder.title.setText(note.getTitle());
         holder.date.setText(note.getdate());
 
+        //Retrieve data from firebase
+        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference wDocRef = db.collection(u.getEmail()).document(note.getTid());
+
+        wDocRef.get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                        if(documentSnapshot.exists()){
+                            fullname = documentSnapshot.getString("name");
+                            timeOfCreation = documentSnapshot.getString("toc");
+                            taskData = documentSnapshot.getString("task");
+                        }
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(mCtx,addTask.class);
                 intent.putExtra("tid",""+note.getTid());
+
+
                 mCtx.startActivity(intent);
             }
         });
+
 
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -93,33 +122,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                                             whatsappIntent.setType("text/plain");
                                             whatsappIntent.setPackage("com.whatsapp");
 
-                                            //Retrieve data from firebase
-                                            FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-                                            FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                            DocumentReference myDocRef = db.collection(u.getEmail()).document(note.getTid());
 
-                                            myDocRef.get()
-                                                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-                                                  @Override
-                                                  public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                                                  if(documentSnapshot.exists()){
-                                                       fullname = documentSnapshot.getString("email");
-                                                       toc = documentSnapshot.getString("toc");
-                                                       task = documentSnapshot.getString("task");
-                                                  }
-
-                                              }
-                                            })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-
-                                                }
-                                            });
-
-                                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, ""+fullname+"\n"+toc+"\n"+task);
+                                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, ""+fullname+"\n"+timeOfCreation+"\n"+taskData);
                                             try {
                                                 mCtx.startActivity(whatsappIntent);
                                            } catch (android.content.ActivityNotFoundException ex) {
