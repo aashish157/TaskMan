@@ -99,6 +99,7 @@ public class addTask extends AppCompatActivity {
 
                     // Create a new note with fields uid,email,name,task,toc
                     Map<String, Object> user = new HashMap<>();
+                    user.put("tid", "t" + currentTime);
                     user.put("uid", u.getUid());
                     user.put("email", u.getEmail());
                     user.put("name", u.getDisplayName());

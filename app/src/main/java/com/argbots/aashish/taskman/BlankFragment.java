@@ -88,7 +88,7 @@ public class BlankFragment extends Fragment {
         Log.e("called","yes");
         FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference myDocRef = db.collection(u.getEmail()).document("t024715121018");
+        //DocumentReference myDocRef = db.collection(u.getEmail()).document("t024715121018");
 
         /*myDocRef.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -125,8 +125,9 @@ public class BlankFragment extends Fragment {
 
                                 String noteContent = document.getString("task");
                                 String timeOfCreation = document.getString("toc");
+                                String taskId = document.getString("tid");
 
-                                Note note = new Note(noteContent,timeOfCreation);
+                                Note note = new Note(noteContent,timeOfCreation,taskId);
                                 Log.e("Notes", noteContent);
                                 noteList.add(note);
 
