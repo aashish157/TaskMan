@@ -27,6 +27,9 @@ import java.util.List;
 
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
+    String fullname;
+    String toc;
+    String task;
 
     private List<Note> notesList;
     private Context mCtx;
@@ -73,12 +76,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
             }
         });
 
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 PopupMenu popup = new PopupMenu(mCtx, v);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
 
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -100,9 +105,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                                                   public void onSuccess(DocumentSnapshot documentSnapshot) {
 
                                                   if(documentSnapshot.exists()){
-                                                      String fullname = documentSnapshot.getString("email");
-                                                      String toc = documentSnapshot.getString("toc");
-                                                      String task = documentSnapshot.getString("task");
+                                                       fullname = documentSnapshot.getString("email");
+                                                       toc = documentSnapshot.getString("toc");
+                                                       task = documentSnapshot.getString("task");
                                                   }
 
                                               }
@@ -114,7 +119,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                                                 }
                                             });
 
-                                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, ""+note.getTid());
+                                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, ""+fullname+"\n"+toc+"\n"+task);
                                             try {
                                                 mCtx.startActivity(whatsappIntent);
                                            } catch (android.content.ActivityNotFoundException ex) {
