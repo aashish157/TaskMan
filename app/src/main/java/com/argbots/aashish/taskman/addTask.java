@@ -40,6 +40,7 @@ import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.N
 public class addTask extends AppCompatActivity {
 
     FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+    String FilePath;
 
     private static final String TAG = "Aashish";
 
@@ -53,6 +54,8 @@ public class addTask extends AppCompatActivity {
 
         if (getIntent().hasExtra("tid")) {
             final TextView taskNote = (TextView) findViewById(R.id.taskNote);
+            final TextView attachment = (TextView) findViewById(R.id.textFile);
+
             String taskId = getIntent().getExtras().getString("tid");
 
 
@@ -68,7 +71,9 @@ public class addTask extends AppCompatActivity {
 
                 if(documentSnapshot.exists()){
                     String task = documentSnapshot.getString("task");
+                    String attach = documentSnapshot.getString("filepath");
                     taskNote.setText(task);
+                    attachment.setText(attach);
 
 //                    Note note = new Note(task,"2018");
 //                    Log.e("Notes", task);
@@ -137,6 +142,7 @@ public class addTask extends AppCompatActivity {
                     user.put("name", u.getDisplayName());
                     user.put("task", task);
                     user.put("toc", toc);
+                    user.put("filepath", FilePath);
 
                     mDocRef.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
 
@@ -192,7 +198,7 @@ public class addTask extends AppCompatActivity {
         switch(requestCode){
             case PICKFILE_RESULT_CODE:
                 if(resultCode==RESULT_OK){
-                    String FilePath = data.getData().getPath();
+                    FilePath = data.getData().getPath();
                     textFile.setText(FilePath);
                 }
                 break;

@@ -67,31 +67,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
         holder.title.setText(note.getTitle());
         holder.date.setText(note.getdate());
 
-        //Retrieve data from firebase
-        FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference wDocRef = db.collection(u.getEmail()).document(note.getTid());
-
-        wDocRef.get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                        if(documentSnapshot.exists()){
-                            fullname = documentSnapshot.getString("name");
-                            timeOfCreation = documentSnapshot.getString("toc");
-                            taskData = documentSnapshot.getString("task");
-                        }
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +87,33 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder
                 PopupMenu popup = new PopupMenu(mCtx, v);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+
+
+                //Retrieve data from firebase
+                FirebaseUser u = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                DocumentReference wDocRef = db.collection(u.getEmail()).document(note.getTid());
+
+                wDocRef.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                                if(documentSnapshot.exists()){
+                                    fullname = documentSnapshot.getString("name");
+                                    timeOfCreation = documentSnapshot.getString("toc");
+                                    taskData = documentSnapshot.getString("task");
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                            }
+                        });
 
 
                 //registering popup with OnMenuItemClickListener
