@@ -5,12 +5,10 @@ TaskMan is an Android App where people can add tasks and manage them.The app wou
 
 ## Screenshots
 <div class="row col-md-12">
-	<img src="img/ss1.jpeg" alt="Login Activity" width="200px" />
-	<img src="img/ss2.jpeg" alt="Sign Up Activity" width="200px" />
-</div>
-<div class="row col-md-12">
-	<img src="img/ss3.jpeg" alt="Dashboard" width="200px" />
-	<img src="img/ss4.jpeg" alt="Add Task Activity" width="200px" />
+	<img src="screenshots/ss1.jpeg" alt="Login Activity" width="200px" />
+	<img src="screenshots/ss2.jpeg" alt="Sign Up Activity" width="200px" />
+	<img src="screenshots/ss3.jpeg" alt="Dashboard" width="200px" />
+	<img src="screenshots/ss4.jpeg" alt="Add Task Activity" width="200px" />
 </div>
 
 
@@ -43,8 +41,14 @@ Whether you’re sharing a grocery list, working on a project, preparing a group
 3. Android Support Repository
 
 ## App-Developers
-###<a href="https://github.com/aashish157">Aashish Raj Gupta</a>
-###<a href="https://github.com/Abhinavag1235">Abhinav Agarwal</a>
-###<a href="https://github.com/abhecreative">Abhishek Goyal</a>
-###<a href="https://github.com/harshup18">Harsh Upadhyay</a>
-###<a href="https://github.com/rahulasnani">Rahul Asnani</a>
+<ul>
+	<li><a href="https://github.com/aashish157">Aashish Raj Gupta</a>
+	</li>
+	<li><a href="https://github.com/Abhinavag1235">Abhinav Agarwal</a>
+	</li>
+	<li><a href="https://github.com/abhecreative">Abhishek Goyal</a>
+	</li>
+	<li><a href="https://github.com/harshup18">Harsh Upadhyay</a>
+	</li>
+	<li><a href="https://github.com/rahulasnani">Rahul Asnani</a></li>
+</ul>
